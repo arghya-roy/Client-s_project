@@ -1,0 +1,1174 @@
+showing current rolebindings on the cluster before apply
+
+NAMESPACE     NAME                                                ROLE                                                  AGE
+kube-public   system:controller:bootstrap-signer                  Role/system:controller:bootstrap-signer               10m
+kube-system   gce:cloud-provider                                  Role/gce:cloud-provider                               9m3s
+kube-system   gce:podsecuritypolicy:pdcsi-node-sa                 ClusterRole/gce:podsecuritypolicy:privileged          9m17s
+kube-system   konnectivity-agent-cpha                             Role/konnectivity-agent-cpha                          9m25s
+kube-system   metrics-server-auth-reader                          Role/extension-apiserver-authentication-reader        9m1s
+kube-system   pdcsi-leaderelection-binding                        Role/pdcsi-leaderelection                             9m17s
+kube-system   snapshot-controller-leaderelection                  Role/snapshot-controller-leaderelection               9m13s
+kube-system   system::extension-apiserver-authentication-reader   Role/extension-apiserver-authentication-reader        10m
+kube-system   system::leader-locking-kube-controller-manager      Role/system::leader-locking-kube-controller-manager   10m
+kube-system   system::leader-locking-kube-scheduler               Role/system::leader-locking-kube-scheduler            10m
+kube-system   system:controller:bootstrap-signer                  Role/system:controller:bootstrap-signer               10m
+kube-system   system:controller:cloud-provider                    Role/system:controller:cloud-provider                 10m
+kube-system   system:controller:token-cleaner                     Role/system:controller:token-cleaner                  10m
+
+
+The file name is  atmos-developers-rolebinding.yaml
+
+
+The namespace name of atmos-developers-rolebinding.yaml is ns0
+
+getting rolebinding name from atmos-developers-rolebinding.yaml
+
+The rolebinding name of atmos-developers-rolebinding.yaml is nginx
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx","namespace":"ns0"},"spec":{"containers":[{"image":"nginx","name":"nginx","ports":[{"containerPort":806}]}]}}
+  creationTimestamp: "2022-06-27T04:19:26Z"
+  name: nginx
+  namespace: ns0
+  resourceVersion: "2624"
+  uid: f88e47c5-e157-43c7-bfa8-9a38ebb36708
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 806
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-t7d5s
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-t7d5s
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:26Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:31Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:31Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:26Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://d6fe2b971acf47709e2353184ab19a9a164269e73ca881e122238187acd47c22
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:10f14ffa93f8dedf1057897b745e5ac72ac5655c299dade0aa434c71557697ea
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:19:30Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.10
+  podIPs:
+  - ip: 10.4.0.10
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:19:26Z"
+ Applying atmos-developers-rolebinding.yaml -n ns0 file
+pod/nginx unchanged
+
+The file name is  pod1.yaml
+
+
+The namespace name of pod1.yaml is ns1
+
+getting rolebinding name from pod1.yaml
+
+The rolebinding name of pod1.yaml is nginx2
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx2","namespace":"ns1"},"spec":{"containers":[{"image":"nginx","name":"nginx","ports":[{"containerPort":80}]}]}}
+  creationTimestamp: "2022-06-27T04:19:34Z"
+  name: nginx2
+  namespace: ns1
+  resourceVersion: "2653"
+  uid: 082bc8ff-ae1e-40dd-9e9b-1f73329dd91e
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-mp5jg
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-mp5jg
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:34Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:35Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:35Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:34Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://9f425840b7ad7458ab01fff8de9f0fc0d38f06e698f704e6d6991b4d11b90aad
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:10f14ffa93f8dedf1057897b745e5ac72ac5655c299dade0aa434c71557697ea
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:19:35Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.11
+  podIPs:
+  - ip: 10.4.0.11
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:19:34Z"
+ Applying pod1.yaml -n ns1 file
+pod/nginx2 unchanged
+
+The file name is  pod2.yml
+
+
+The namespace name of pod2.yml is default
+
+getting rolebinding name from pod2.yml
+
+The rolebinding name of pod2.yml is nginx3
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx3","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx","ports":[{"containerPort":807}]}]}}
+  creationTimestamp: "2022-06-27T04:19:40Z"
+  name: nginx3
+  namespace: default
+  resourceVersion: "2719"
+  uid: 05e90eae-d3b6-4e1d-8508-1f781a7abf9c
+spec:
+  containers:
+  - image: nginx:1.14.2
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    ports:
+    - containerPort: 807
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-4r84b
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-4r84b
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:40Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:45Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:45Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:40Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://24dc18b188d9a2ded4fc047a6a6135252a7ba04df0d5beabf2da9fef164de3fa
+    image: docker.io/library/nginx:1.14.2
+    imageID: docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:19:44Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.12
+  podIPs:
+  - ip: 10.4.0.12
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:19:40Z"
+ Applying pod2.yml -n default file
+pod/nginx3 unchanged
+
+The file name is  pod3.yaml
+
+
+The namespace name of pod3.yaml is default
+
+getting rolebinding name from pod3.yaml
+
+The rolebinding name of pod3.yaml is nginx4
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx4","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx","ports":[{"containerPort":80}]}]}}
+  creationTimestamp: "2022-06-27T04:19:48Z"
+  name: nginx4
+  namespace: default
+  resourceVersion: "2753"
+  uid: 3774318c-a6c7-4e28-a4b9-66d1c87e7d80
+spec:
+  containers:
+  - image: nginx:1.14.2
+    imagePullPolicy: IfNotPresent
+    name: nginx
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-wpcdc
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-wpcdc
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:48Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:50Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:50Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:48Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://8501b9c989ac36cc683081540260b485576beef46d55bfe69c0a4de6205764e5
+    image: docker.io/library/nginx:1.14.2
+    imageID: docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:19:49Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.13
+  podIPs:
+  - ip: 10.4.0.13
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:19:48Z"
+ Applying pod3.yaml -n default file
+pod/nginx4 unchanged
+
+The file name is  pod4.yml
+
+
+The namespace name of pod4.yml is default
+
+getting rolebinding name from pod4.yml
+
+The rolebinding name of pod4.yml is nginx7
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx7","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx5","ports":[{"containerPort":80}]}]}}
+  creationTimestamp: "2022-06-27T04:19:55Z"
+  name: nginx7
+  namespace: default
+  resourceVersion: "2807"
+  uid: 7533b728-d5c8-427a-b25f-772c6e8ff3d7
+spec:
+  containers:
+  - image: nginx:1.14.2
+    imagePullPolicy: IfNotPresent
+    name: nginx5
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-jxbg8
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-jxbg8
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:55Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:57Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:57Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:19:55Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://27c43cf8395f7c187fc8c1888980c1aca82c567d8443eea890de0eaf91741c25
+    image: docker.io/library/nginx:1.14.2
+    imageID: docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    lastState: {}
+    name: nginx5
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:19:56Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.14
+  podIPs:
+  - ip: 10.4.0.14
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:19:55Z"
+ Applying pod4.yml -n default file
+pod/nginx7 unchanged
+
+The file name is  pod5.yml
+
+
+The namespace name of pod5.yml is default
+
+getting rolebinding name from pod5.yml
+
+The rolebinding name of pod5.yml is nginx55
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx55","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx6","ports":[{"containerPort":80}]}]}}
+  creationTimestamp: "2022-06-27T04:20:04Z"
+  name: nginx55
+  namespace: default
+  resourceVersion: "2876"
+  uid: 8c0068c6-376c-45fd-ae09-e4a8c230344d
+spec:
+  containers:
+  - image: nginx:1.14.2
+    imagePullPolicy: IfNotPresent
+    name: nginx6
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-9qtts
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-9qtts
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:04Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:06Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:06Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:04Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://db7affb0e310490d945629944e3b08a30df196eb9382e5ca11591d02dcc8c3c4
+    image: docker.io/library/nginx:1.14.2
+    imageID: docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    lastState: {}
+    name: nginx6
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:20:05Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.15
+  podIPs:
+  - ip: 10.4.0.15
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:20:04Z"
+ Applying pod5.yml -n default file
+pod/nginx55 unchanged
+
+The file name is  pod6.yml
+
+
+The namespace name of pod6.yml is default
+
+getting rolebinding name from pod6.yml
+
+The rolebinding name of pod6.yml is nginx66
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx66","namespace":"default"},"spec":{"containers":[{"image":"nginx:1.14.2","name":"nginx6","ports":[{"containerPort":80}]}]}}
+  creationTimestamp: "2022-06-27T04:20:15Z"
+  name: nginx66
+  namespace: default
+  resourceVersion: "2951"
+  uid: 55f5378b-9068-462d-a5cb-26e00cc24fda
+spec:
+  containers:
+  - image: nginx:1.14.2
+    imagePullPolicy: IfNotPresent
+    name: nginx6
+    ports:
+    - containerPort: 80
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-l7hgs
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-l7hgs
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:15Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:16Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:16Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:15Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://04a48258cf283b578577a4bb2a5be93f57a66dc16d5de493869366efa284cff7
+    image: docker.io/library/nginx:1.14.2
+    imageID: docker.io/library/nginx@sha256:f7988fb6c02e0ce69257d9bd9cf37ae20a60f1df7563c3a2a6abe24160306b8d
+    lastState: {}
+    name: nginx6
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:20:16Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.16
+  podIPs:
+  - ip: 10.4.0.16
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:20:15Z"
+ Applying pod6.yml -n default file
+pod/nginx66 unchanged
+
+The file name is  pod7.yml
+
+
+The namespace name of pod7.yml is default
+
+getting rolebinding name from pod7.yml
+
+The rolebinding name of pod7.yml is nginx31
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx31","namespace":"default"},"spec":{"containers":[{"image":"nginx","name":"nginx","ports":[{"containerPort":807}]}]}}
+  creationTimestamp: "2022-06-27T04:20:19Z"
+  name: nginx31
+  namespace: default
+  resourceVersion: "2987"
+  uid: f648e289-7070-4730-9a22-3ab530622e0f
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 807
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-gmnf2
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-gmnf2
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:19Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:21Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:21Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:19Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://cc3ec3f2b4a5b54b3e85d06cc237a1fffc7317359ba70f4f20a053e228d148d8
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:10f14ffa93f8dedf1057897b745e5ac72ac5655c299dade0aa434c71557697ea
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:20:20Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.17
+  podIPs:
+  - ip: 10.4.0.17
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:20:19Z"
+ Applying pod7.yml -n default file
+pod/nginx31 unchanged
+
+The file name is  pod8.yml
+
+
+The namespace name of pod8.yml is default
+
+getting rolebinding name from pod8.yml
+
+The rolebinding name of pod8.yml is nginx310
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx310","namespace":"default"},"spec":{"containers":[{"image":"nginx","name":"nginx","ports":[{"containerPort":807}]}]}}
+  creationTimestamp: "2022-06-27T04:20:26Z"
+  name: nginx310
+  namespace: default
+  resourceVersion: "3031"
+  uid: 23d956f1-b321-4550-8c7a-4b2c48dc9d1b
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 807
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-vkknp
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-vkknp
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:26Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:28Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:28Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:26Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://bf791b078f63a5d0aff98e909161fe84f9e508f58e1790d8ea329cb8d2e9a608
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:10f14ffa93f8dedf1057897b745e5ac72ac5655c299dade0aa434c71557697ea
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:20:27Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.18
+  podIPs:
+  - ip: 10.4.0.18
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:20:26Z"
+ Applying pod8.yml -n default file
+pod/nginx310 unchanged
+
+The file name is  pod9.yml
+
+
+The namespace name of pod9.yml is ns0
+
+getting rolebinding name from pod9.yml
+
+The rolebinding name of pod9.yml is nginx310
+
+apiVersion: v1
+kind: Pod
+metadata:
+  annotations:
+    kubectl.kubernetes.io/last-applied-configuration: |
+      {"apiVersion":"v1","kind":"Pod","metadata":{"annotations":{},"name":"nginx310","namespace":"ns0"},"spec":{"containers":[{"image":"nginx","name":"nginx","ports":[{"containerPort":807}]}]}}
+  creationTimestamp: "2022-06-27T04:20:32Z"
+  name: nginx310
+  namespace: ns0
+  resourceVersion: "3068"
+  uid: ba8e865a-2cb5-4865-ba93-f3501a4b25d7
+spec:
+  containers:
+  - image: nginx
+    imagePullPolicy: Always
+    name: nginx
+    ports:
+    - containerPort: 807
+      protocol: TCP
+    resources: {}
+    terminationMessagePath: /dev/termination-log
+    terminationMessagePolicy: File
+    volumeMounts:
+    - mountPath: /var/run/secrets/kubernetes.io/serviceaccount
+      name: kube-api-access-9xg4p
+      readOnly: true
+  dnsPolicy: ClusterFirst
+  enableServiceLinks: true
+  nodeName: gke-cluster-1-default-pool-2cf73dda-pp3s
+  preemptionPolicy: PreemptLowerPriority
+  priority: 0
+  restartPolicy: Always
+  schedulerName: default-scheduler
+  securityContext: {}
+  serviceAccount: default
+  serviceAccountName: default
+  terminationGracePeriodSeconds: 30
+  tolerations:
+  - effect: NoExecute
+    key: node.kubernetes.io/not-ready
+    operator: Exists
+    tolerationSeconds: 300
+  - effect: NoExecute
+    key: node.kubernetes.io/unreachable
+    operator: Exists
+    tolerationSeconds: 300
+  volumes:
+  - name: kube-api-access-9xg4p
+    projected:
+      defaultMode: 420
+      sources:
+      - serviceAccountToken:
+          expirationSeconds: 3607
+          path: token
+      - configMap:
+          items:
+          - key: ca.crt
+            path: ca.crt
+          name: kube-root-ca.crt
+      - downwardAPI:
+          items:
+          - fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+            path: namespace
+status:
+  conditions:
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:32Z"
+    status: "True"
+    type: Initialized
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:33Z"
+    status: "True"
+    type: Ready
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:33Z"
+    status: "True"
+    type: ContainersReady
+  - lastProbeTime: null
+    lastTransitionTime: "2022-06-27T04:20:32Z"
+    status: "True"
+    type: PodScheduled
+  containerStatuses:
+  - containerID: containerd://9378162a0182b633299eaaf5a4e3bfc11d0db7f7f097afecca4195f236096b24
+    image: docker.io/library/nginx:latest
+    imageID: docker.io/library/nginx@sha256:10f14ffa93f8dedf1057897b745e5ac72ac5655c299dade0aa434c71557697ea
+    lastState: {}
+    name: nginx
+    ready: true
+    restartCount: 0
+    started: true
+    state:
+      running:
+        startedAt: "2022-06-27T04:20:33Z"
+  hostIP: 10.128.0.60
+  phase: Running
+  podIP: 10.4.0.19
+  podIPs:
+  - ip: 10.4.0.19
+  qosClass: BestEffort
+  startTime: "2022-06-27T04:20:32Z"
+ Applying pod9.yml -n ns0 file
+pod/nginx310 unchanged
+
+showing current rolebindings on the cluster after apply
+NAMESPACE     NAME                                                ROLE                                                  AGE
+kube-public   system:controller:bootstrap-signer                  Role/system:controller:bootstrap-signer               11m
+kube-system   gce:cloud-provider                                  Role/gce:cloud-provider                               9m58s
+kube-system   gce:podsecuritypolicy:pdcsi-node-sa                 ClusterRole/gce:podsecuritypolicy:privileged          10m
+kube-system   konnectivity-agent-cpha                             Role/konnectivity-agent-cpha                          10m
+kube-system   metrics-server-auth-reader                          Role/extension-apiserver-authentication-reader        9m56s
+kube-system   pdcsi-leaderelection-binding                        Role/pdcsi-leaderelection                             10m
+kube-system   snapshot-controller-leaderelection                  Role/snapshot-controller-leaderelection               10m
+kube-system   system::extension-apiserver-authentication-reader   Role/extension-apiserver-authentication-reader        11m
+kube-system   system::leader-locking-kube-controller-manager      Role/system::leader-locking-kube-controller-manager   11m
+kube-system   system::leader-locking-kube-scheduler               Role/system::leader-locking-kube-scheduler            11m
+kube-system   system:controller:bootstrap-signer                  Role/system:controller:bootstrap-signer               11m
+kube-system   system:controller:cloud-provider                    Role/system:controller:cloud-provider                 11m
+kube-system   system:controller:token-cleaner                     Role/system:controller:token-cleaner                  11m
+

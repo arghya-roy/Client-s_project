@@ -1,0 +1,12 @@
+resources:
+  - type: gcp-types/cloudscheduler-v1:projects.locations.jobs
+    name: {{ properties['resource_name'] }}
+    properties:
+      parent: projects/{{ env['project'] }}/locations/{{ properties['region'] }}
+      name: {{ properties['scheduler_name'] }}
+      description: {{ properties['description'] }}
+      schedule: {{ properties["schedule_expression"] }}
+      timeZone: {{ properties['timeZone'] }}
+      pubsubTarget:
+        topicName: projects/{{ env['project'] }}/topics/{{ properties['topic_name'] }}
+        data: {{ properties['message_data_base64_encoded'] }}

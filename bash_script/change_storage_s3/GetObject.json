@@ -1,0 +1,12 @@
+{
+    "events": [
+        {
+            "logStreamName": "xxxxx75914_CloudTrail_ap-south-1",
+            "timestamp": 1648750347210,
+            "message": "{\"eventVersion\":\"1.08\",\"userIdentity\":{\"type\":\"Root\",\"principalId\":\"xxxxxxxx\",\"arn\":\"arn:aws:iam::xxxxxx:root\",\"accountId\":\"xxxxxxx\",\"accessKeyId\":\"xxxxxxxxx\",\"sessionContext\":{\"attributes\":{\"creationDate\":\"2022-03-31T09:38:58Z\",\"mfaAuthenticated\":\"false\"}}},\"eventTime\":\"2022-03-31T18:07:15Z\",\"eventSource\":\"s3.amazonaws.com\",\"eventName\":\"GetObject\",\"awsRegion\":\"ap-south-1\",\"sourceIPAddress\":\"xx.xx.xx.xx\",\"userAgent\":\"[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36]\",\"requestParameters\":{\"X-Amz-Date\":\"20220331T180714Z\",\"bucketName\":\"s3trail-bucket\",\"X-Amz-Algorithm\":\"AWS4-HMAC-SHA256\",\"response-content-disposition\":\"attachment\",\"X-Amz-SignedHeaders\":\"host\",\"Host\":\"s3trail-bucket.s3.ap-south-1.amazonaws.com\",\"X-Amz-Expires\":\"300\",\"key\":\"folder2/remove_httpd.yml\"},\"responseElements\":null,\"additionalEventData\":{\"SignatureVersion\":\"SigV4\",\"CipherSuite\":\"ECDHE-RSA-AES128-GCM-SHA256\",\"bytesTransferredIn\":0.0,\"AuthenticationMethod\":\"QueryString\",\"x-amz-id-2\":\"sd35j39Gup5qnNv6xN464A66HdTiPZqc53k+rMN+RO0n97J3jBLTELDzX8fG9M6YgE0VvEMvQm0=\",\"bytesTransferredOut\":147.0},\"requestID\":\"GK9A2F1DF0Q6MBNF\",\"eventID\":\"2fab9c39-7e7c-4f16-ad5b-752ad5839cb7\",\"readOnly\":true,\"resources\":[{\"type\":\"AWS::S3::Object\",\"ARN\":\"arn:aws:s3:::s3trail-bucket/folder2/remove_httpd.yml\"},{\"accountId\":\"201043775914\",\"type\":\"AWS::S3::Bucket\",\"ARN\":\"arn:aws:s3:::s3trail-bucket\"}],\"eventType\":\"AwsApiCall\",\"managementEvent\":false,\"recipientAccountId\":\"201043775914\",\"eventCategory\":\"Data\",\"tlsDetails\":{\"tlsVersion\":\"TLSv1.2\",\"cipherSuite\":\"ECDHE-RSA-AES128-GCM-SHA256\",\"clientProvidedHostHeader\":\"s3trail-bucket.s3.ap-south-1.amazonaws.com\"}}",
+            "ingestionTime": 565756,
+            "eventId": "3676836138911xxxxxxxxxx"
+        }
+    ],
+    "searchedLogStreams": []
+}

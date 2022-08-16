@@ -1,0 +1,16 @@
+resources:
+- name: {{ properties['table_resource_name'] }}
+# type: bigquery.v2.table
+  type: gcp-types/bigquery-v2:tables
+  properties:
+    datasetId: {{ properties['dataset_Id'] }}
+    tableReference:
+      tableId: {{ properties['table_Id'] }}
+# tableMetadataView property allows consumers to set the query parameter
+# used on GET requests
+    {% if properties and properties["tableMetadataView"] %}
+    tableMetadataView: {{ properties["tableMetadataView"] }}
+    {% endif %}
+  metadata:
+    dependsOn:
+    - {{ properties['dependson'] }}

@@ -1,0 +1,7 @@
+resources:
+- name: {{ properties['dataset_resource_name'] }}
+# type: bigquery.v2.dataset
+  type: gcp-types/bigquery-v2:datasets
+  properties:
+    datasetReference:
+      datasetId: {{ properties['dataset_Id'] }}

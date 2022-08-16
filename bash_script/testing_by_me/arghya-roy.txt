@@ -1,0 +1,6 @@
+"playbook-demo"
+"centralgit"
+"name"
+"MyDockerfile"
+"myplaybook"
+"beanstalk1"

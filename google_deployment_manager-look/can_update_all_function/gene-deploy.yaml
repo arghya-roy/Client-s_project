@@ -1,0 +1,123 @@
+imports:
+- path: cloud_scheduler.jinja
+- path: topic.jinja
+- path: dataset.jinja
+- path: table.jinja
+
+resources:
+- type: cloud_scheduler.jinja
+  name: DailySync_resource_yaml_cloud_scheduler
+  properties:
+    resource_name: DailySync_resource_jinja_cloud_scheduler
+    region: us-west1
+    scheduler_name: DailySync
+    description: Daily Cron to Sync
+    schedule_expression: 0 0 * * *
+    timeZone: "America/Los_Angeles"
+    topic_name: DailySync
+    message_data_base64_encoded: "e30="
+
+- type: cloud_scheduler.jinja
+  name: WeeklySync_resource_yaml_cloud_scheduler
+  properties:
+    resource_name: WeeklySync_resource_jinja_cloud_scheduler
+    region: us-west1
+    scheduler_name: WeeklySync
+    description: Weekly Cron to Sync
+    schedule_expression: 00 00 * * 0
+    timeZone: "America/Los_Angeles"
+    topic_name: WeeklySync
+    message_data_base64_encoded: "e30="
+
+##########################################################################
+
+- name: DailySync_resource_yaml_topic
+  type: topic.jinja
+  properties:
+     topic_name: DailySync
+     topic_resourse_name: DailySync_resource_jinja_topic
+
+- name: WeeklySync_resource_yaml_topic
+  type: topic.jinja
+  properties:
+     topic_name: WeeklySync
+     topic_resourse_name: WeeklySync_resource_jinja_topic
+
+##########################################################################
+
+- name: api_resource_yaml_dataset
+  type: dataset.jinja
+  properties:
+     dataset_resource_name: api_resource_jinja_dataset
+     dataset_Id: api       
+
+- name: content_completion_resource_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: content_completion_resource_jinja_table
+     dataset_Id: api      
+     table_Id: content_completion
+     dependson: api_resource_jinja_dataset
+
+- name: creators_resource_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: creators_resource_jinja_table
+     dataset_Id: api     
+     table_Id: creators
+     dependson: api_resource_jinja_dataset
+
+- name: pathway_progress_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: pathway_progress_jinja_table
+     dataset_Id: api      
+     table_Id: pathway_progresss
+     dependson: api_resource_jinja_dataset
+
+- name: search_terms_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: search_terms_jinja_table
+     dataset_Id: api     
+     table_Id: search_terms
+     dependson: api_resource_jinja_dataset
+
+- name: user_skills_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: user_skills_jinja_table
+     dataset_Id: api     
+     table_Id: user_skills
+     dependson: api_resource_jinja_dataset
+
+- name: users_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: users_jinja_table
+     dataset_Id: api     
+     table_Id: users
+     dependson: api_resource_jinja_dataset
+
+- name: views_yaml_table
+  type: table.jinja
+  properties:
+     table_resource_name: views_jinja_table
+     dataset_Id: api   
+     table_Id: views
+     dependson: api_resource_jinja_dataset
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+

@@ -1,0 +1,27 @@
+name: Deno
+
+on:
+  push:
+    branches: ["main"]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup repo
+        uses: actions/checkout@v3
+
+      - name: Setup Google Cloud CLI
+        uses: GoogleCloudPlatform/github-actions/setup-gcloud@0.1.3
+        env:
+         ACTIONS_ALLOW_UNSECURE_COMMANDS: true
+        with:
+         service_account_key: ${{secrets.GKE_SA_KEY}}
+         project_id: festive-canto-350505
+
+      - name: run deployment
+        run: gcloud deployment-manager deployments create deployment --config gene-deploy.yaml --project festive-canto-350505 || gcloud deployment-manager deployments update deployment --config gene-deploy.yaml --project festive-canto-350505
+  
+      - name: deploy function
+        run: chmod 777 update_all.sh && ./update_all.sh

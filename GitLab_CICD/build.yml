@@ -1,0 +1,24 @@
+# Build container for CI environment
+version:
+2.1
+services:
+  base:
+   image: docksal/cli: 2.10-php 7.2
+    # build:
+    #  context: .
+    #  dockerfile: Dockerfile.build 
+   working_dir: /var/www 
+   volumes:
+     -.. /var/www 
+   environment:
+     GIT_USER_EMAIL: "GitLab" 
+     GIT_USER_NAME: "git lab@phase2technology.com" 
+     CI_COMMIT_HASH: "${CI_BUILD_REF}" 
+     CI_BRANCH: "${CI_BUILD_REF_NAME}" 
+     FEWS_ENV: "${FEWS_ENV}" 
+     COVID_WIDGET_VERSION: "${COVID_WIDGET_VERSION}" 
+     COMPOSER_GITLAB_TOKEN: "${COMPOSER_GITLAB_TOKEN)"
+     COVID_WIDGET_DEFAULT_VERSION: "${COVID_WIDGET_DEFAULT_VERSION}" 
+   #env_file:
+      # Pass project-specific environment variables into cli container. 
+   # - ...env

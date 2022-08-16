@@ -1,0 +1,65 @@
+{
+    "eventVersion": "1.08",
+    "userIdentity": {
+        "type": "Root",
+        "principalId": "201043775914",
+        "arn": "arn:aws:iam::201043775914:root",
+        "accountId": "201043775914",
+        "accessKeyId": "ASIAS5TZESGVAQUG23G7",
+        "sessionContext": {
+            "attributes": {
+                "creationDate": "2022-03-31T09:38:58Z",
+                "mfaAuthenticated": "false"
+            }
+        }
+    },
+    "eventTime": "2022-03-31T17:48:04Z",
+    "eventSource": "s3.amazonaws.com",
+    "eventName": "PutObject",
+    "awsRegion": "ap-south-1",
+    "sourceIPAddress": "49.37.51.241",
+    "userAgent": "[Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/99.0.4844.84 Safari/537.36]",
+    "requestParameters": {
+        "X-Amz-Date": "20220331T174804Z",
+        "bucketName": "s3trail-bucket",
+        "X-Amz-Algorithm": "AWS4-HMAC-SHA256",
+        "x-amz-acl": "bucket-owner-full-control",
+        "X-Amz-SignedHeaders": "content-md5;host;x-amz-acl;x-amz-storage-class",
+        "Host": "s3trail-bucket.s3.ap-south-1.amazonaws.com",
+        "X-Amz-Expires": "300",
+        "key": "folder2/remove_httpd.yml",
+        "x-amz-storage-class": "STANDARD"
+    },
+    "responseElements": null,
+    "additionalEventData": {
+        "SignatureVersion": "SigV4",
+        "CipherSuite": "ECDHE-RSA-AES128-GCM-SHA256",
+        "bytesTransferredIn": 147,
+        "AuthenticationMethod": "QueryString",
+        "x-amz-id-2": "BELEUnAy11STBj//LP0BKp6EdFloL0Lo14A6prFmaGK6ZsmjNPk0IruMYq5lWPZy1V76NK5pp2M=",
+        "bytesTransferredOut": 0
+    },
+    "requestID": "4HBX2EM5YMKX47SD",
+    "eventID": "3d73df62-2fb1-403e-919d-9b1ddee5f341",
+    "readOnly": false,
+    "resources": [
+        {
+            "type": "AWS::S3::Object",
+            "ARN": "arn:aws:s3:::s3trail-bucket/folder2/remove_httpd.yml"
+        },
+        {
+            "accountId": "201043775914",
+            "type": "AWS::S3::Bucket",
+            "ARN": "arn:aws:s3:::s3trail-bucket"
+        }
+    ],
+    "eventType": "AwsApiCall",
+    "managementEvent": false,
+    "recipientAccountId": "201043775914",
+    "eventCategory": "Data",
+    "tlsDetails": {
+        "tlsVersion": "TLSv1.2",
+        "cipherSuite": "ECDHE-RSA-AES128-GCM-SHA256",
+        "clientProvidedHostHeader": "s3trail-bucket.s3.ap-south-1.amazonaws.com"
+    }
+}

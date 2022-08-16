@@ -1,0 +1,13 @@
+resources:
+- name: {{ properties['build_name'] }}
+  action: gcp-types/cloudbuild-v1:cloudbuild.projects.builds.create
+  metadata:
+    runtimePolicy:
+    - CREATE
+  properties:
+      steps:
+      - name: gcr.io/cloud-builders/git
+        args: ['clone', 'https://<token>@github.com/{{ properties['username'] }}/{{ properties['repo_name'] }}.git']
+      - name: gcr.io/cloud-builders/gsutil
+        args: ['-m', 'cp', '-r', '{{ properties['repo_name'] }}/{{ properties['file_path_name_in_repo'] }}*', 'gs://{{ properties['bucket_name'] }}/']
+      timeout: 120s

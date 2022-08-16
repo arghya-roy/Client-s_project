@@ -1,0 +1,152 @@
+image: docker:19.03.4
+
+variables:
+    DOCKER_DRIVER: overlay2
+    DOCKER_TLS_CERTDIR: ""
+    REPOSITORY_URl: 888016039450.dkr.ecr.us-east-2.amazonaws.com/fewsnetweb
+    CRYPTOGRAPHY_DONT_BUILD_RUST: 1
+
+services:
+- docker:19.03.4-dind
+
+before_script:
+  - set
+  # ensure DOCKER_HOST is set in runner.
+  - source ./.gitlab-ci/bin/check-docker.sh
+  # install needed tools.
+  - apk add -no-cache curl jq python3 py3-pip python3-dev libffi-dev openssl-dev gcc libc-dev make
+  # update pip (WEB-815).
+  - pip3 install --upgrade pip
+  - pip3 install awscli docker-compose
+
+stages:
+  - build
+  - deploy
+  - update
+
+build_dev:
+  stage: build
+  interruptible: true
+  variables:
+    FEWS_ENV: dev
+  script:
+    # setup ss keys to get access to others repos
+    - .gitlab-ci/bin/setup-git.sh
+    # run composser install
+    - docker-compose -f .gitlab-ci/build.yml --rm base ./bin/make
+    # build visualization
+    - .gitlab-ci/bin/build-visualization.sh dev
+    # run build process
+    - .gitlab-ci/bin/build.sh dev
+  only:
+    - develop
+  tags:
+    - docker
+
+build_stage:
+  stage: build
+  interruptible: true
+  variables:
+    FEWS_ENV: stage
+  script:
+    # setup ss keys to get access to others repos
+    - .gitlab-ci/bin/setup-git.sh
+    # run composser install
+    - docker-compose -f .gitlab-ci/build.yml --rm base ./bin/make
+    # build visualization
+    - .gitlab-ci/bin/build-visualization.sh stage
+    # run build process
+    - .gitlab-ci/bin/build.sh stage
+  only:
+    - /^rc/
+  tags:
+    - docker
+
+build_prod:
+  stage: build
+  interruptible: true
+  variables:
+    FEWS_ENV: prod
+  script:
+    # setup ss keys to get access to others repos
+    - .gitlab-ci/bin/setup-git.sh
+    # run composser install
+    - docker-compose -f .gitlab-ci/build.yml --rm base ./bin/make
+    # build visualization
+    - .gitlab-ci/bin/build-visualization.sh prod
+    # run build process
+    - .gitlab-ci/bin/build.sh prod
+  only:
+    - tags
+  tags:
+    - docker
+
+deploy_dev:
+  stage: deploy
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/deploy.sh develop
+  only:
+    - develop
+  tags:
+    - docker
+
+deploy_stage:
+  stage: deploy
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/deploy.sh stage
+  only:
+    - /^rc/
+  tags:
+    - docker
+
+deploy_prod:
+  stage: deploy
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/deploy.sh prod
+  only:
+    - tags
+  when: mannual
+  allow_failure: false
+  tags:
+    - docker
+
+update_dev:
+  stage: update
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/run-ssm-cmd.sh develop
+  only:
+    - develop
+  tags:
+    - docker
+
+update_stage:
+  stage: update
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/run-ssm-cmd.sh stage
+  only:
+    - /^rc/
+  tags:
+    - docker
+
+update_prod:
+  stage: deploy
+  variables:
+  script:
+    # run build process
+    - .gitlab-ci/bin/run-ssm-cmd.sh prod
+  only:
+    - tags
+  when: mannual
+  allow_failure: false
+  tags:
+    - docker

@@ -1,0 +1,32 @@
+
+resources:
+- type: gcp-types/cloudfunctions-v1:projects.locations.functions
+  name:  {{ properties['resource_name'] }}                   
+  properties:
+    parent: projects/{{ env['project'] }}/locations/{{ properties['region'] }}
+    function: {{ properties['function_name'] }} 
+    sourceArchiveUrl: {{ properties['sourceArchiveUrl'] }}
+    entryPoint: {{ properties['entryPoint'] }}
+    runtime: {{ properties['runtime'] }}
+    timeout: {{ properties['timeout'] }}
+    {% if properties and properties["environmentVariables"] == true %}
+    environmentVariables:
+    {% endif %}
+        {% if properties and properties["key1"] %}
+        {{ properties['key1'] }}: {{ properties['value1'] }}
+        {% endif %}
+        {% if properties and properties["key2"] %}
+        {{ properties['key2'] }}: {{ properties['value2'] }}
+        {% endif %}
+        {% if properties and properties["key3"] %}
+        {{ properties['key3'] }}: {{ properties['value3'] }}
+        {% endif %}
+        {% if properties and properties["key4"] %}
+        {{ properties['key4'] }}: {{ properties['value4'] }}
+        {% endif %}
+    eventTrigger:
+      resource: projects/{{ env['project'] }}/topics/{{ properties['topic_name'] }}
+      eventType: providers/cloud.pubsub/eventTypes/topic.publish
+  metadata:
+    dependsOn:
+    - {{ properties['dependson'] }}

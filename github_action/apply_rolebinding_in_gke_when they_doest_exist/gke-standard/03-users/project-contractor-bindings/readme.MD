@@ -1,0 +1,1 @@
+### For checking purposes I am applying pods in place of rolebindings. Client will replace pods yaml by rolebindings yaml as per requirement.
