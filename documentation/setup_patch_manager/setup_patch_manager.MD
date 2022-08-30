@@ -13,7 +13,7 @@
 - **For amazon linux version 1 -**
 - Go to add tag section - **key=Patch Group** and **value=patchv1** and select only tose instances which are using amazon linux version 1 - Click on add tag
 - **For amazon linux version 2 -**
-- Go to add tag section - **key=Patch Group** and **value=patchv1** and select only tose instances which are using amazon linux version 2 - Click on add tag
+- Go to add tag section - **key=Patch Group** and **value=patchv2** and select only tose instances which are using amazon linux version 2 - Click on add tag
 ### Step 4 -
 - **For amazon linux version 1 -**
 - Open System manager - patch manager - view predifined patch baselines - create patch baselines - create patch baseline for operating system amazon linux 1 - in product, Severity, Classification section click on their dropdown and select **ALL**.
